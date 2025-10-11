@@ -7,12 +7,12 @@ import { UpdateSubjectDto } from './dto/update-materia.dto';
 export class MateriasController {
   constructor(private readonly subjectservice: MateriasService) {}
   @Post("crear una nueva materia")
- Createnewdocentswithsubjects(@Body() data: subjectcreateDto){
+ Createsubjects(@Body() data: subjectcreateDto){
     return this.subjectservice. Createsubject(data)
   }
 
   @Get('Mostrar todas las materias')
-  showalldocentswiththesubjects(){
+  Showsubjects(){
     return this.subjectservice.Showsubject();
   }
 
