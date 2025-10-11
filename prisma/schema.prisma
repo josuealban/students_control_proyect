@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model Docente {
+  id             Int             @id @default(autoincrement())
+  nombre         String
+  apellido       String
+  especialidadId Int
+  especialidad   Especialidad    @relation(fields: [especialidadId], references: [id])
+  materias       MateriaDocente[]
+}
+
+model Estudiante {
+  id        Int       @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  carreraId Int
+  cicloId   Int
+  carrera   Carrera   @relation(fields: [carreraId], references: [id])
+  ciclo     Ciclo     @relation(fields: [cicloId], references: [id])
+  materias  Matricula[]
+}
+
+model Carrera {
+  id             Int             @id @default(autoincrement())
+  nombre         String
+  especialidades Especialidad[]
+  ciclos         Ciclo[]
+  materias       Materia[]
+  estudiantes    Estudiante[]
+}
+
+model Especialidad {
+  id        Int       @id @default(autoincrement())
+  nombre    String
+  carreraId Int
+  carrera   Carrera   @relation(fields: [carreraId], references: [id])
+  docentes  Docente[]
+  materias  Materia[]
+}
+
+model Ciclo {
+  id        Int        @id @default(autoincrement())
+  numero    Int
+  carreraId Int
+  carrera   Carrera    @relation(fields: [carreraId], references: [id])
+  estudiantes Estudiante[]
+  materias    Materia[]
+}
+
+model Materia {
+  id             Int             @id @default(autoincrement())
+  nombre         String
+  especialidadId Int
+  carreraId      Int
+  cicloId        Int
+  especialidad   Especialidad    @relation(fields: [especialidadId], references: [id])
+  carrera        Carrera         @relation(fields: [carreraId], references: [id])
+  ciclo          Ciclo           @relation(fields: [cicloId], references: [id])
+  docentes       MateriaDocente[]
+  estudiantes    Matricula[]
+}
+
+model MateriaDocente {
+  id        Int     @id @default(autoincrement())
+  materiaId Int
+  docenteId Int
+  materia   Materia @relation(fields: [materiaId], references: [id])
+  docente   Docente @relation(fields: [docenteId], references: [id])
+}
+
+model Matricula {
+  id          Int        @id @default(autoincrement())
+  estudianteId Int
+  materiaId   Int
+  estudiante  Estudiante @relation(fields: [estudianteId], references: [id])
+  materia     Materia    @relation(fields: [materiaId], references: [id])
+}
