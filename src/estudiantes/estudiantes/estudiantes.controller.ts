@@ -7,12 +7,12 @@ import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
 export class estudianteController {
   constructor(private readonly estudianteservice: studentsService) {}
   @Post("Crear estudiante")
-  Thisfuntionstudentscreate(data:any) {
+  async Thisfuntionstudentscreate(data:any) {
     return this.estudianteservice. Createestudiantes(data)
   }
 
   @Get()
-  showallstudents() {
+  async showallstudents() {
     return this.estudianteservice.Showstudents();
   }
 
