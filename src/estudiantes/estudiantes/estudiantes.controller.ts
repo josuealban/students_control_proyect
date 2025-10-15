@@ -1,19 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { studentsService} from './estudiantes.service';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { StudentsService } from './estudiantes.service';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
-import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
 
 @Controller('estudiante')
-export class estudianteController {
-  constructor(private readonly estudianteservice: studentsService) {}
-  @Post("Crearestudiante")
-  async Thisfuntionstudentscreate(data:any) {
-    return this.estudianteservice. Createestudiantes(data)
+export class EstudianteController {
+  constructor(private readonly estudiantesService: StudentsService) {}
+
+  @Post('Crearestudiante')
+  async createEstudiante(@Body() data: CreateEstudianteDto) {
+    console.log('Datos recibidos:', data); // Para debug
+    return this.estudiantesService.Createestudiantes(data);
   }
 
   @Get()
-  async showallstudents() {
-    return this.estudianteservice.Showstudents();
+  async showAllStudents() {
+    return this.estudiantesService.Showstudents();
   }
-
 }
