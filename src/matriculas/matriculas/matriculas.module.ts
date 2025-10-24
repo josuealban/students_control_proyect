@@ -6,4 +6,4 @@ import { PrismaService } from 'src/prisma/prsima.service'
   controllers: [MatriculaController],
   providers: [MatriculaService, PrismaService],
 })
-export class studentmodule {}
+export class MatriculasModule {}

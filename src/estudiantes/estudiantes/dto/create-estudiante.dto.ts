@@ -1,12 +1,34 @@
+import { IsString, IsNumber, IsBoolean, IsDateString, IsOptional } from 'class-validator';
+
 export class CreateEstudianteDto {
-    nombre: string;
-    apellido: string;
-    edad: number;
-    correoinstitucional: string;
-    identificacion: string;
-    telefono: string;
-    direccion: string;
-    genero: string;
-    fechanacimiento: Date;
-    estado: boolean;
+  @IsString()
+  nombre: string;
+
+  @IsString()
+  apellido: string;
+
+  @IsNumber()
+  edad: number;
+
+  @IsString()
+  correoinstitucional: string;
+
+  @IsString()
+  identificacion: string;
+
+  @IsString()
+  telefono: string;
+
+  @IsString()
+  direccion: string;
+
+  @IsString()
+  genero: string;
+
+  @IsDateString()
+  fechanacimiento: Date;
+
+  @IsBoolean()
+  @IsOptional() // opcional en caso de que no se envíe
+  estado?: boolean;
 }
